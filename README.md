@@ -41,3 +41,10 @@ The trade-off: k-d trees are awkward for *moving* points — updating a coordina
 
 - `Point` — point class. Constructor: `new Point(x, y, data?)`. Coordinates must be finite numbers; `data` is optional and opaque.
 - `TangleTree` — the tree. Constructor: `new TangleTree(points?)`. Methods: `insert(point)`, `insertAll(points)`, `query(minX, minY, maxX, maxY)` → `Point[]`, `queryData(minX, minY, maxX, maxY)` → `any[]`, `size()` → `number`. The default export is `TangleTree`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
